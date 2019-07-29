@@ -17,7 +17,9 @@ public class GFG {
     } 
     static Node root; 
     static Node temp = root; 
-      
+    static Queue<Node> q = new LinkedList<>();
+	
+	
     /* Inorder traversal of a binary tree*/
     static void inorder(Node temp) 
     { 
@@ -35,6 +37,26 @@ public class GFG {
 
         // Do level order traversal until we find 
         // an empty place and add the node.  
+		if(temp.left != null && temp.right != null)
+		{
+			q.add(temp.left);
+			q.add(temp.right);
+			insert(q.poll(), key);
+			return;
+		}
+		
+		else if(temp.right == null)
+		{
+		    temp.right = new Node(key);
+		    return;
+		}
+		else
+		{
+		  temp.left = new Node(key);
+		  return;
+		}
+		
+		
     } 
        
     // Driver code 
@@ -46,10 +68,9 @@ public class GFG {
         root.right = new Node(9); 
         root.right.left = new Node(15); 
         root.right.right = new Node(8); 
-       
+        
         System.out.print( "Inorder traversal before insertion:"); 
         inorder(root); 
-       
         int key = 12; 
         insert(root, key); 
        
